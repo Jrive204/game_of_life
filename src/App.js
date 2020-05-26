@@ -9,12 +9,18 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from './components/Grid';
 import useWindowDimensions from './components/hooks/useWindowDimensions';
 import CasinoIcon from '@material-ui/icons/Casino';
+import aud from './components/audio/Luna Llena (Live).mp3';
+import aud2 from './components/audio/bensound-dubstep.mp3';
+import aud3 from './components/audio/Jesse Cook Dance Of Spring [Xsongspk.me].mp3';
+var sample = require('lodash.sample');
 
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
   },
 }));
+
+const ranSong = [aud, aud3, aud2, aud, aud3, aud2];
 
 const operations = [
   [0, 1],
@@ -33,6 +39,8 @@ function App() {
   const numCols = width < 500 ? 20 : 30;
   const widthCheck = width < 500;
   const [running, setrunning] = useState(false);
+
+  const [ranSongfromArray, setranSongfromArray] = useState(sample(ranSong));
 
   function playAudio() {
     const sound = document.getElementsByClassName('audio-element')[0];
@@ -103,11 +111,29 @@ function App() {
     setTimeout(runSim, 300);
   }, [numRows, numCols]);
 
+  console.log(ranSongfromArray, 'RANSONG');
+
   return (
     <>
-      <audio className='audio-element'>
-        <source src='https://www.bensound.com/bensound-music/bensound-dubstep.mp3' />
-      </audio>
+      {running ? (
+        <audio
+          key={ranSongfromArray}
+          loop
+          style={{
+            position: 'absolute',
+            top: widthCheck ? '600px' : '75%',
+            right: widthCheck ? '80px' : '40%',
+          }}
+          className='audio-element'
+          controls
+        >
+          <source src={ranSongfromArray} />
+        </audio>
+      ) : (
+        <audio key={ranSongfromArray} loop className='audio-element'>
+          <source src={ranSongfromArray} />
+        </audio>
+      )}
 
       <h1
         style={{
@@ -169,6 +195,7 @@ function App() {
               style={{ background: 'grey', color: 'white' }}
               onClick={() => {
                 pauseAudio();
+                setranSongfromArray(sample(ranSong));
                 setrunning(!running);
                 if (!running) {
                   runningRef.current = true;
