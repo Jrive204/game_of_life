@@ -2,7 +2,6 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import './App.css';
 import produce from 'immer';
 import { makeStyles, IconButton } from '@material-ui/core';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import StopIcon from '@material-ui/icons/Stop';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from './components/Grid';
@@ -154,7 +153,7 @@ function App() {
     setTimeout(runSim, timeRef.current);
   }, [numRows, numCols]);
 
-  console.log(ranSongfromArray, 'RANSONG');
+  console.log(ranSongfromArray, 'RANSONG', height);
   console.log(sum, timeRef.current, 'SUM', songRef.current);
   return (
     <>
