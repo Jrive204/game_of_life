@@ -73,6 +73,20 @@ class Waveform extends Component {
     this.waveform.load(this.state.song);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.widthCheck !== this.props.widthCheck) {
+      if (this.props.widthCheck && this.waveform) {
+        this.waveform.pause();
+        this.setState({ playing: false });
+        this.props.resetGrid();
+      } else if (!this.props.widthCheck && this.waveform) {
+        this.waveform.pause();
+        this.setState({ playing: false });
+        this.props.resetGrid();
+      }
+    }
+  }
+
   handlePlay = () => {
     this.setState({ playing: !this.state.playing });
     this.waveform.playPause();
@@ -92,6 +106,28 @@ class Waveform extends Component {
   };
 
   render() {
+    var length = this.waveform?.getDuration();
+    var start = 0;
+    var end = length;
+    let peaks = this.waveform?.backend.getPeaks(length, start, end).sort();
+
+    console.log(
+      peaks,
+      length,
+      'PEAKS'
+      //   (this.props.timeRef.current = 600)
+    );
+
+    function findRange() {
+      return peaks.reduce((acc, cv) => {
+        return acc + cv * 100;
+      });
+    }
+    if (peaks && peaks.length) {
+      findRange();
+      console.log(findRange(), 'peaks2');
+    }
+
     return (
       <>
         <div
@@ -101,6 +137,7 @@ class Waveform extends Component {
             margin: '10px auto',
           }}
         >
+          {this.props.widthCheck ? this.handlePlay : null}
           <Grid container spacing={2}>
             <Grid item>
               <VolumeUp />
@@ -124,7 +161,20 @@ class Waveform extends Component {
                   : this.state.song === this.props.aud3
                   ? 'Listening to : Dance Of Spring'
                   : 'Listening to : Saint Jhn Roses Imanbek')}
+              {/* ADJUST SPEED */}
+              {/* {this.props.running &&
+                (this.state.song === this.props.aud
+                  ? 'Listening to : Luna Llena'
+                  : this.state.song === this.props.aud2
+                  ? 'Listening to : Bensound-Dubstep'
+                  : this.state.song === this.props.aud3
+                  ? 'Listening to : Dance Of Spring'
+                  : 'Listening to : Saint Jhn Roses Imanbek')} */}
             </figcaption>
+            {console.log(
+              this.waveform?.backend.getPeaks(this.waveform),
+              'WHAT ARE YOU'
+            )}
           </Grid>
         </div>
         <WaveformContianer>

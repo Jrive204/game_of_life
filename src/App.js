@@ -43,7 +43,7 @@ function App() {
   const numCols = width < 500 ? 20 : 30;
   const widthCheck = width < 500;
   const [running, setrunning] = useState(false);
-  const timeRef = useRef(300);
+  const timeRef = useRef(250);
 
   const [ranSongfromArray, setranSongfromArray] = useState(sample(ranSong));
   const [generation, setgeneration] = useState(0);
@@ -51,9 +51,6 @@ function App() {
   // Audio player using HTML5, using Js to toggle songs playing
 
   function playAudio() {
-    // const sound = document.querySelector('.audio');
-    // sound.play();
-
     setrunning(!running);
     if (!running) {
       runningRef.current = true;
@@ -61,15 +58,9 @@ function App() {
       setranSongfromArray(sample(ranSong));
     }
   }
-  function pauseAudio() {
-    // const sound = document.querySelector('.audio');
-    // sound.pause();
-    // sound.currentTime = 0;
-  }
 
   // Looking for Width change, if it hits responsive range it shuts off audio and resets/pauses the grid
   useEffect(() => {
-    pauseAudio();
     setrunning(false);
     setGrid(() => {
       const rows = [];
@@ -99,6 +90,12 @@ function App() {
   const runningRef = useRef(running);
 
   runningRef.current = running;
+
+  function resetGrid() {
+    setGrid(initialState);
+    setgeneration(0);
+    setSum(0);
+  }
 
   const runSim = useCallback(() => {
     if (!runningRef.current) {
@@ -175,8 +172,8 @@ function App() {
           style={{
             display: 'flex',
             margin: '0 0 1% 0',
-            width: '20%',
-            justifyContent: 'space-evenly',
+            width: '40%',
+            justifyContent: !widthCheck ? 'space-evenly' : 'space-between',
           }}
         >
           <IconButton
@@ -200,49 +197,11 @@ function App() {
           >
             <CasinoIcon fontSize='default' />
           </IconButton>
-          {/* {!runningRef.current ? (
-            <IconButton
-              variant='contained'
-              className={classes.button}
-              style={{ background: 'green', color: 'white' }}
-              onClick={() => {
-                // playAudio();
-                setrunning(!running);
-                if (!running) {
-                  runningRef.current = true;
-                  runSim();
-                }
-              }}
-            >
-              <PlayArrowIcon fontSize='default' />
-            </IconButton>
-          ) : (
-            <IconButton
-              variant='contained'
-              className={classes.button}
-              style={{ background: 'grey', color: 'white' }}
-              onClick={() => {
-                pauseAudio();
-                setranSongfromArray(sample(ranSong));
-                setrunning(!running);
-                if (!running) {
-                  runningRef.current = true;
-                  runSim();
-                }
-              }}
-            >
-              <StopIcon fontSize='default' />
-            </IconButton>
-          )} */}
           <IconButton
             variant='contained'
             style={{ color: 'white', background: 'red' }}
             className={classes.button}
-            onClick={() => {
-              setGrid(initialState);
-              setgeneration(0);
-              setSum(0);
-            }}
+            onClick={resetGrid}
           >
             <DeleteIcon fontSize='default' />
           </IconButton>
@@ -270,6 +229,9 @@ function App() {
         aud={aud}
         aud2={aud2}
         aud3={aud3}
+        resetGrid={resetGrid}
+        widthCheck={widthCheck}
+        timeRef={timeRef}
       />
     </>
   );
