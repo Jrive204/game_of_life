@@ -245,6 +245,7 @@ function App() {
         timeRef={timeRef}
         setSpeed={setSpeed}
         songRef={songRef}
+        height={height}
       />
     </>
   );

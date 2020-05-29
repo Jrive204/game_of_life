@@ -172,7 +172,7 @@ class Waveform extends Component {
           <PlayButton
             style={{
               position: 'absolute',
-              top: '13.6%',
+              top: this.props.height <= 722 ? '18%' : '13.6%',
               color: 'white',
               background: !this.props.running ? 'green' : 'gray',
             }}
