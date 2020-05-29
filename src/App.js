@@ -192,7 +192,6 @@ function App() {
 
               setGrid(rows);
               setSum(rows.flat().reduce((acc, cv) => acc + cv));
-              console.log(rows, 'ROWS??');
             }}
           >
             <CasinoIcon fontSize='default' />
