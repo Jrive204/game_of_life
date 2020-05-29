@@ -42,11 +42,15 @@ export const PlayButton = styled.button`
 `;
 
 class Waveform extends Component {
-  state = {
-    playing: false,
-    value: 100,
-    song: this.props.ranSongfromArray,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      playing: false,
+      value: 100,
+      song: this.props.ranSongfromArray,
+    };
+    this.props.songRef.current = this.state.song;
+  }
 
   componentDidMount() {
     const track = document.querySelector('#track');
@@ -56,13 +60,11 @@ class Waveform extends Component {
       cursorWidth: 1,
       container: '#waveform',
       backend: 'MediaElement',
-      height: 80,
+      height: 100,
       progressColor: '#2D5BFF',
       responsive: true,
       waveColor: '#EFEFEF',
       cursorColor: 'transparent',
-      //   mediaControls: true,
-      //   partialRender: true,
       forceDecode: true,
       pixelRatio: 1,
       //   fillParent: false,
@@ -71,6 +73,9 @@ class Waveform extends Component {
     });
 
     this.waveform.load(this.state.song);
+    // this.waveform.on('waveform-ready', function () {
+    //   return alert('READY');
+    // });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -96,6 +101,9 @@ class Waveform extends Component {
         song: this.props.ranSongfromArray,
       });
       this.waveform.load(this.props.ranSongfromArray);
+      setTimeout(() => {
+        this.props.songRef.current = this.state.song;
+      }, 0);
     }
   };
   handleChange = (event, newValue) => {
@@ -109,7 +117,8 @@ class Waveform extends Component {
     var length = this.waveform?.getDuration();
     var start = 0;
     var end = length;
-    let peaks = this.waveform?.backend.getPeaks(length, start, end).sort();
+    let peaks = this.waveform?.backend.getPeaks(length, start, end);
+    console.log(this.waveform?.getFilters(), 'peaksss');
 
     console.log(
       peaks,
@@ -117,16 +126,6 @@ class Waveform extends Component {
       'PEAKS'
       //   (this.props.timeRef.current = 600)
     );
-
-    function findRange() {
-      return peaks.reduce((acc, cv) => {
-        return acc + cv * 100;
-      });
-    }
-    if (peaks && peaks.length) {
-      findRange();
-      console.log(findRange(), 'peaks2');
-    }
 
     return (
       <>
@@ -162,14 +161,6 @@ class Waveform extends Component {
                   ? 'Listening to : Dance Of Spring'
                   : 'Listening to : Saint Jhn Roses Imanbek')}
               {/* ADJUST SPEED */}
-              {/* {this.props.running &&
-                (this.state.song === this.props.aud
-                  ? 'Listening to : Luna Llena'
-                  : this.state.song === this.props.aud2
-                  ? 'Listening to : Bensound-Dubstep'
-                  : this.state.song === this.props.aud3
-                  ? 'Listening to : Dance Of Spring'
-                  : 'Listening to : Saint Jhn Roses Imanbek')} */}
             </figcaption>
             {console.log(
               this.waveform?.backend.getPeaks(this.waveform),

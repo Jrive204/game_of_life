@@ -44,6 +44,7 @@ function App() {
   const widthCheck = width < 500;
   const [running, setrunning] = useState(false);
   const timeRef = useRef(250);
+  const songRef = useRef('');
 
   const [ranSongfromArray, setranSongfromArray] = useState(sample(ranSong));
   const [generation, setgeneration] = useState(0);
@@ -59,6 +60,14 @@ function App() {
     }
   }
 
+  //  Speed function
+
+  function setSpeed(initialTime, a, b, c, d) {
+    timeRef.current = initialTime;
+    setTimeout(() => {
+      timeRef.current = 150;
+    }, 1000);
+  }
   // Looking for Width change, if it hits responsive range it shuts off audio and resets/pauses the grid
   useEffect(() => {
     setrunning(false);
@@ -70,6 +79,10 @@ function App() {
       return rows;
     });
   }, [widthCheck, numCols, numRows]);
+
+  useEffect(() => {
+    console.log('hello');
+  }, [songRef.current]);
 
   // Initial state for Rows, it creates the rows based on columns
 
@@ -142,7 +155,7 @@ function App() {
   }, [numRows, numCols]);
 
   console.log(ranSongfromArray, 'RANSONG');
-  console.log(sum, 'SUM');
+  console.log(sum, timeRef.current, 'SUM', songRef.current);
   return (
     <>
       <h1
@@ -231,6 +244,8 @@ function App() {
         resetGrid={resetGrid}
         widthCheck={widthCheck}
         timeRef={timeRef}
+        setSpeed={setSpeed}
+        songRef={songRef}
       />
     </>
   );
