@@ -176,8 +176,8 @@ class Waveform extends Component {
                 this.props.height <= 600
                   ? '30%'
                   : this.props.height <= 820
-                  ? '22%'
-                  : '20%',
+                  ? '20%'
+                  : '18%',
               color: 'white',
               background: !this.props.running ? 'green' : 'gray',
             }}
