@@ -162,6 +162,7 @@ function App() {
           color: '#2E9CCA',
           textAlign: 'center',
           fontWeight: 'bolder',
+          marginBottom: '0',
         }}
       >
         Conway's <br />
@@ -185,7 +186,7 @@ function App() {
           style={{
             display: 'flex',
             margin: '0 0 1% 0',
-            width: '40%',
+            width: !widthCheck ? '20%' : '50%',
             justifyContent: !widthCheck ? 'space-evenly' : 'space-between',
           }}
         >
