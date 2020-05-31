@@ -173,10 +173,12 @@ function App() {
           color: '#2E9CCA',
           textAlign: 'center',
           fontWeight: 'bolder',
-          fontSize: '17px',
+          fontSize: '15px',
         }}
       >
-        Generation: {generation} &nbsp; &nbsp; Population: &nbsp;{sum}
+        Generation: <span style={{ color: 'orange' }}>{generation}</span>
+        &nbsp; &nbsp; Population: &nbsp;{' '}
+        <span style={{ color: 'orange' }}>{sum}</span>
       </p>
 
       <section style={{ display: 'flex', justifyContent: 'center' }}>

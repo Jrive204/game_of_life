@@ -174,10 +174,10 @@ class Waveform extends Component {
               position: 'absolute',
               top:
                 this.props.height <= 600
-                  ? '30%'
+                  ? '34%'
                   : this.props.height <= 820
                   ? '20%'
-                  : '18%',
+                  : '16%',
               color: 'white',
               background: !this.props.running ? 'green' : 'gray',
             }}
