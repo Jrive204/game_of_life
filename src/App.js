@@ -164,7 +164,8 @@ function App() {
           fontWeight: 'bolder',
         }}
       >
-        Conway's "Game of Life"
+        Conway's <br />
+        "Game of Life"
       </h1>
       <p
         style={{
