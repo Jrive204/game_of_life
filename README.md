@@ -13,7 +13,7 @@ aspects of computer science and nature.
 
 ## Objectives
 
-- Student should be able to create a unique, high-quality project that
+- Create a unique, high-quality project that
   can be added to a professional portfolio
 - [Student should be able to describe the rules of Conway’s “Game of
   Life”](objectives/rules-game-life)
