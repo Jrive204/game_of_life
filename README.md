@@ -10,30 +10,12 @@ aspects of computer science and nature.
 
 [from Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns)
 
+## Rules
 
-## Objectives
-
-- Create a unique, high-quality project that
-  can be added to a professional portfolio
-- [Student should be able to describe the rules of Conway’s “Game of
-  Life”](objectives/rules-game-life)
-- [Student should be able to explain what cellular automata are and
-  describe how they are useful in real
-  life](objectives/explain-describe-ca)
-- [Student should be able to correctly analyze the ‘Turing Completeness’
-  of Conway’s “Game of Life”](objectives/turing-complete)
-- [Student should be able to implement a visualization of Conway’s “Game
-  of Life” using technologies related to their specific
-  track](objectives/visualization)
-- [Student should be able to utilize "double buffering" to implement
-  the game](objectives/double-buffer)
-
-  ## Rules
-
-  - Any live cell with fewer than two live neighbours dies, as if by underpopulation.
-  - Any live cell with two or three live neighbours lives on to the next generation.
-  - Any live cell with more than three live neighbours dies, as if by overpopulation.
-  - Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+- Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+- Any live cell with two or three live neighbours lives on to the next generation.
+- Any live cell with more than three live neighbours dies, as if by overpopulation.
+- Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
 ## MVP Features
 
